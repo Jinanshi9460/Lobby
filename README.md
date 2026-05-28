@@ -9,7 +9,7 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![Express](https://img.shields.io/badge/Express-4-000000?logo=express&logoColor=white)](https://expressjs.com/)
 
-[Architecture](#-system-architecture) · [Process Flows](#-process-flows) · [Quick Start](#-quick-start) · [Demo Accounts](#-demo-accounts)
+[Architecture](#-system-architecture) · [Database](#-database) · [Process Flows](#-process-flows) · [Quick Start](#-quick-start) · [Demo Accounts](#-demo-accounts)
 
 </div>
 
@@ -321,6 +321,67 @@ erDiagram
 
 ---
 
+## Database
+
+LOBBy stores all application data in **MongoDB** (recommended: **MongoDB Atlas**). The backend uses **Mongoose** ODM; connection logic is in `backend/src/config/db.js`.
+
+### Connection
+
+| Variable | Description |
+|----------|-------------|
+| `MONGO_URI` | Full connection string (Atlas or local). Example: `mongodb+srv://user:pass@cluster.mongodb.net/lobby` |
+| `MONGO_DNS_SERVERS` | Optional DNS override (default `8.8.8.8,1.1.1.1`) if Atlas SRV lookup fails |
+
+If `MONGO_URI` is not set, the API falls back to:
+
+```text
+mongodb://127.0.0.1:27017/lobby
+```
+
+Copy `backend/.env.example` → `backend/.env` and set your Atlas URI before running the server.
+
+### Health check
+
+```http
+GET http://localhost:5000/health
+```
+
+Returns `database: connected` when MongoDB is reachable.
+
+### Collections (Mongoose models)
+
+| Model | File | Purpose |
+|-------|------|---------|
+| `User` | `backend/src/models/User.js` | Students, vendors, admins (role field) |
+| `Vendor` | `backend/src/models/Vendor.js` | Vendor profile, `isApproved` |
+| `Shop` | `backend/src/models/Shop.js` | Vendor shops, `isOpen` |
+| `Product` | `backend/src/models/Product.js` | Catalog items, stock, images |
+| `Category` | `backend/src/models/Category.js` | Product categories |
+| `Order` | `backend/src/models/Order.js` | Student orders |
+| `Payment` | `backend/src/models/Payment.js` | Razorpay payment records |
+| `Cart` | `backend/src/models/Cart.js` | Shopping cart per user |
+| `Wishlist` | `backend/src/models/Wishlist.js` | Saved products |
+| `Review` | `backend/src/models/Review.js` | Product reviews |
+| `Chat` / `Message` | `backend/src/models/Chat.js`, `Message.js` | Real-time messaging |
+| `Notification` | `backend/src/models/Notification.js` | User notifications |
+| `HelpdeskTicket` | `backend/src/models/HelpdeskTicket.js` | Support tickets |
+
+### Entity diagram
+
+See **[Database Entity Relationships](#database-entity-relationships)** under Process Flows for the ER diagram.
+
+### Seed data
+
+Populate demo users, shops, and products:
+
+```bash
+cd backend
+npm run seed              # Upsert demo data (safe)
+npm run seed -- --reset   # Wipe users, vendors, shops, products first
+```
+
+---
+
 ## Project Structure
 
 ```
@@ -371,7 +432,9 @@ npm run seed -- --reset   # Clears users, vendors, shops, products
 
 ### Environment variables
 
-**Backend** (`backend/.env`): `MONGO_URI`, `JWT_SECRET`, `REFRESH_TOKEN_SECRET`, `GOOGLE_CLIENT_ID`, `COLLEGE_EMAIL_ALLOWLIST`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `CLOUDINARY_*`, `SMTP_*`, `CLIENT_URL`, `ADMIN_LOGIN_SECRET`
+**Backend** (`backend/.env`) — see also [Database](#-database) for `MONGO_URI` / `MONGO_DNS_SERVERS`:
+
+`MONGO_URI`, `MONGO_DNS_SERVERS`, `JWT_SECRET`, `REFRESH_TOKEN_SECRET`, `GOOGLE_CLIENT_ID`, `COLLEGE_EMAIL_ALLOWLIST`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `CLOUDINARY_*`, `SMTP_*`, `CLIENT_URL`, `ADMIN_LOGIN_SECRET`
 
 **Frontend** (`frontend/.env`): `VITE_API_BASE_URL`, `VITE_GOOGLE_CLIENT_ID`, `VITE_RAZORPAY_KEY_ID`
 
