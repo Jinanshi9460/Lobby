@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="Segoe UI, Inter, sans-serif">
+  <defs>
+    <style>
+      .title { fill: #f8fafc; font-size: 18px; font-weight: 700; }
+      .node { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.5; }
+      .start { fill: #064e3b; stroke: #2dd4bf; }
+      .warn { fill: #422006; stroke: #fbbf24; }
+      .ok { fill: #042f2e; stroke: #2dd4bf; }
+      .no { fill: #450a0a; stroke: #f87171; }
+      .t { fill: #e2e8f0; font-size: 12px; font-weight: 600; }
+      .arrow { stroke: #67e8f9; stroke-width: 1.5; fill: none; marker-end: url(#a); }
+    </style>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#67e8f9"/></marker>
+  </defs>
+  <rect width="720" height="480" fill="#020617"/>
+  <text x="360" y="28" text-anchor="middle" class="title">Vendor Registration &amp; Approval Process</text>
+
+  <rect x="280" y="50" width="160" height="44" rx="22" class="start"/><text x="360" y="78" text-anchor="middle" class="t">Vendor registers</text>
+  <rect x="255" y="130" width="210" height="44" rx="8" class="node"/><text x="360" y="158" text-anchor="middle" class="t">College email validated</text>
+  <rect x="255" y="210" width="210" height="44" rx="8" class="warn"/><text x="360" y="238" text-anchor="middle" class="t">Status: Pending approval</text>
+  <rect x="255" y="290" width="210" height="44" rx="8" class="node"/><text x="360" y="318" text-anchor="middle" class="t">Admin reviews in dashboard</text>
+
+  <rect x="80" y="380" width="150" height="44" rx="8" class="ok"/><text x="155" y="408" text-anchor="middle" class="t">Approved</text>
+  <rect x="490" y="380" width="150" height="44" rx="8" class="no"/><text x="565" y="408" text-anchor="middle" class="t">Rejected</text>
+
+  <rect x="55" y="450" width="200" height="22" rx="4" fill="#0f172a" stroke="#334155"/><text x="155" y="465" text-anchor="middle" fill="#94a3b8" font-size="10">Manage shops · products · orders</text>
+  <rect x="465" y="450" width="200" height="22" rx="4" fill="#0f172a" stroke="#334155"/><text x="565" y="465" text-anchor="middle" fill="#94a3b8" font-size="10">Email notification sent</text>
+
+  <path d="M360 94 L360 130" class="arrow"/>
+  <path d="M360 174 L360 210" class="arrow"/>
+  <path d="M360 254 L360 290" class="arrow"/>
+  <path d="M310 334 L155 380" class="arrow"/>
+  <path d="M410 334 L565 380" class="arrow"/>
+  <text x="220" y="360" fill="#94a3b8" font-size="11">Approve</text>
+  <text x="500" y="360" fill="#94a3b8" font-size="11">Reject</text>
+</svg>

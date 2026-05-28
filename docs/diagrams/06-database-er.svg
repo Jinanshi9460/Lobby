@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="Segoe UI, Inter, sans-serif">
+  <defs>
+    <style>
+      .title { fill: #f8fafc; font-size: 18px; font-weight: 700; }
+      .ent { fill: #1e293b; stroke: #22d3ee; stroke-width: 1.5; }
+      .hdr { fill: #0e7490; }
+      .t { fill: #f1f5f9; font-size: 12px; font-weight: 700; }
+      .f { fill: #cbd5e1; font-size: 10px; }
+      .rel { stroke: #64748b; stroke-width: 1.2; fill: none; }
+    </style>
+  </defs>
+  <rect width="900" height="480" fill="#020617"/>
+  <text x="450" y="28" text-anchor="middle" class="title">Database Entity Relationship (Core Models)</text>
+
+  <g transform="translate(40,60)">
+    <rect width="120" height="80" rx="6" class="ent"/><rect width="120" height="22" rx="6" class="hdr"/><text x="60" y="16" text-anchor="middle" class="t">User</text>
+    <text x="8" y="38" class="f">email, role</text><text x="8" y="52" class="f">password hash</text><text x="8" y="66" class="f">isVerified</text>
+  </g>
+  <g transform="translate(200,60)">
+    <rect width="120" height="80" rx="6" class="ent"/><rect width="120" height="22" rx="6" class="hdr"/><text x="60" y="16" text-anchor="middle" class="t">Vendor</text>
+    <text x="8" y="38" class="f">isApproved</text><text x="8" y="52" class="f">storeName</text>
+  </g>
+  <g transform="translate(380,50)">
+    <rect width="120" height="90" rx="6" class="ent"/><rect width="120" height="22" rx="6" class="hdr"/><text x="60" y="16" text-anchor="middle" class="t">Shop</text>
+    <text x="8" y="38" class="f">name, campus</text><text x="8" y="52" class="f">isOpen</text><text x="8" y="66" class="f">vendor ref</text>
+  </g>
+  <g transform="translate(560,50)">
+    <rect width="120" height="90" rx="6" class="ent"/><rect width="120" height="22" rx="6" class="hdr"/><text x="60" y="16" text-anchor="middle" class="t">Product</text>
+    <text x="8" y="38" class="f">price, stock</text><text x="8" y="52" class="f">isActive</text><text x="8" y="66" class="f">shop ref</text>
+  </g>
+  <g transform="translate(120,220)">
+    <rect width="120" height="80" rx="6" class="ent"/><rect width="120" height="22" rx="6" class="hdr"/><text x="60" y="16" text-anchor="middle" class="t">Order</text>
+    <text x="8" y="38" class="f">status, total</text><text x="8" y="52" class="f">user ref</text>
+  </g>
+  <g transform="translate(320,220)">
+    <rect width="120" height="70" rx="6" class="ent"/><rect width="120" height="22" rx="6" class="hdr"/><text x="60" y="16" text-anchor="middle" class="t">Cart</text>
+    <text x="8" y="38" class="f">items[]</text>
+  </g>
+  <g transform="translate(500,220)">
+    <rect width="140" height="80" rx="6" class="ent"/><rect width="140" height="22" rx="6" class="hdr"/><text x="70" y="16" text-anchor="middle" class="t">HelpdeskTicket</text>
+    <text x="8" y="38" class="f">subject, status</text><text x="8" y="52" class="f">priority</text>
+  </g>
+  <g transform="translate(700,220)">
+    <rect width="120" height="70" rx="6" class="ent"/><rect width="120" height="22" rx="6" class="hdr"/><text x="60" y="16" text-anchor="middle" class="t">Payment</text>
+    <text x="8" y="38" class="f">razorpay ids</text>
+  </g>
+
+  <path d="M160 90 L200 90" class="rel"/><text x="180" y="84" fill="#94a3b8" font-size="9">1:1</text>
+  <path d="M320 95 L380 95" class="rel"/><text x="350" y="89" fill="#94a3b8" font-size="9">1:N</text>
+  <path d="M500 95 L560 95" class="rel"/><text x="530" y="89" fill="#94a3b8" font-size="9">1:N</text>
+  <path d="M100 140 L180 220" class="rel"/><text x="120" y="185" fill="#94a3b8" font-size="9">places</text>
+  <path d="M100 140 L380 220" class="rel"/>
+  <path d="M180 260 L500 260" class="rel"/>
+</svg>

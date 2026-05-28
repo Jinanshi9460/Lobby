@@ -1,0 +1,236 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply text-slate-100;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.18), transparent 26%),
+    radial-gradient(circle at 80% 0%, rgba(59, 130, 246, 0.2), transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(14, 165, 233, 0.15), transparent 30%),
+    #020617;
+  min-height: 100vh;
+}
+
+body.light-theme {
+  @apply text-slate-900;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.16), transparent 30%),
+    radial-gradient(circle at 80% 0%, rgba(99, 102, 241, 0.14), transparent 32%),
+    #f8fafc;
+}
+
+body.light-theme .glass-card {
+  @apply border-slate-200/90 bg-white/80 shadow-slate-300/40;
+}
+
+body.light-theme header {
+  @apply border-slate-200 bg-white/85;
+}
+
+/* Global readability overrides for light theme */
+body.light-theme [class*='text-white'],
+body.light-theme [class*='text-slate-100'],
+body.light-theme [class*='text-slate-200'] {
+  color: #0f172a !important;
+}
+
+body.light-theme [class*='text-slate-300'],
+body.light-theme [class*='text-slate-400'],
+body.light-theme [class*='text-slate-500'] {
+  color: #334155 !important;
+}
+
+body.light-theme [class*='text-cyan-'],
+body.light-theme [class*='text-sky-'] {
+  color: #0e7490 !important;
+}
+
+body.light-theme [class*='text-violet-'],
+body.light-theme [class*='text-indigo-'] {
+  color: #4c1d95 !important;
+}
+
+body.light-theme [class*='text-emerald-'] {
+  color: #166534 !important;
+}
+
+body.light-theme [class*='text-rose-'],
+body.light-theme [class*='text-red-'] {
+  color: #9f1239 !important;
+}
+
+body.light-theme [class*='bg-slate-950'],
+body.light-theme [class*='bg-slate-900'],
+body.light-theme [class*='bg-slate-800'] {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+}
+
+body.light-theme [class*='border-white/'],
+body.light-theme [class*='border-slate-8'],
+body.light-theme [class*='border-slate-7'] {
+  border-color: rgba(148, 163, 184, 0.45) !important;
+}
+
+body.light-theme input,
+body.light-theme textarea,
+body.light-theme select,
+body.light-theme button {
+  color: #0f172a;
+}
+
+body.light-theme .bg-cyan-400\/20,
+body.light-theme .bg-cyan-500\/10,
+body.light-theme .bg-cyan-400\/10 {
+  background-color: rgba(6, 182, 212, 0.2) !important;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  border-radius: 0.75rem;
+  padding: 0.4rem 0.75rem 0.4rem 0.4rem;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(15, 23, 42, 0.55);
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+.brand-logo:hover {
+  border-color: rgba(34, 211, 238, 0.4);
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.brand-logo__mark {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.95));
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  color: #22d3ee;
+}
+
+.brand-logo__svg {
+  width: 1.55rem;
+  height: 1.55rem;
+}
+
+.brand-logo__lane {
+  stroke: currentColor;
+  opacity: 0.35;
+}
+
+.brand-logo__awning {
+  fill: currentColor;
+  opacity: 0.22;
+}
+
+.brand-logo__awning--main {
+  opacity: 0.32;
+}
+
+.brand-logo__stripe {
+  stroke: currentColor;
+  opacity: 0.5;
+  stroke-linecap: round;
+}
+
+.brand-logo__stall {
+  fill: rgba(2, 6, 23, 0.85);
+  stroke: currentColor;
+  stroke-width: 1.2;
+}
+
+.brand-logo__stall--main {
+  stroke-width: 1.35;
+}
+
+.brand-logo__window {
+  fill: currentColor;
+  opacity: 0.55;
+}
+
+.brand-logo__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  line-height: 1.1;
+}
+
+.brand-logo__wordmark {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #f1f5f9;
+}
+
+.brand-logo__accent {
+  color: #22d3ee;
+  font-weight: 600;
+}
+
+.brand-logo__tagline {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+body.light-theme .brand-logo {
+  border-color: rgba(148, 163, 184, 0.45);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+body.light-theme .brand-logo:hover {
+  border-color: rgba(14, 116, 144, 0.45);
+  background: #fff;
+}
+
+body.light-theme .brand-logo__mark {
+  background: linear-gradient(180deg, #f8fafc, #e2e8f0);
+  color: #0e7490;
+  border-color: rgba(14, 116, 144, 0.28);
+}
+
+body.light-theme .brand-logo__stall {
+  fill: rgba(248, 250, 252, 0.95);
+}
+
+body.light-theme .brand-logo__wordmark {
+  color: #0f172a !important;
+}
+
+body.light-theme .brand-logo__accent {
+  color: #0e7490 !important;
+}
+
+body.light-theme .brand-logo__tagline {
+  color: #64748b !important;
+}
+
+button, input, textarea, select {
+  @apply rounded-xl border border-slate-700/60 bg-slate-900/70 text-slate-100;
+}
+
+input:focus, textarea:focus, select:focus, button:focus-visible, a:focus-visible {
+  @apply outline-none ring-2 ring-cyan-400 ring-offset-2 ring-offset-slate-950;
+}
+
+::selection {
+  background: rgba(96, 165, 250, 0.35);
+}
+
+@layer components {
+  .glass-card {
+    @apply rounded-3xl border border-white/10 bg-slate-900/55 backdrop-blur-xl shadow-2xl shadow-slate-950/35;
+  }
+}
