@@ -4,6 +4,7 @@ import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tool
 import { useState } from 'react';
 import api from '../services/api';
 import Loader from '../components/Loader';
+import VendorOrdersPanel from '../components/VendorOrdersPanel';
 
 const fetchAnalytics = async () => {
   const { data } = await api.get('/vendors/analytics');
@@ -35,6 +36,7 @@ const fileToDataUrl = file =>
 
 const VendorDashboardPage = () => {
   const queryClient = useQueryClient();
+  const [activeTab, setActiveTab] = useState('overview');
   const [exportRange, setExportRange] = useState({ from: '', to: '' });
   const [form, setForm] = useState({
     title: '',
@@ -119,6 +121,21 @@ const VendorDashboardPage = () => {
       <div className="rounded-[2rem] border border-slate-800 bg-slate-900/80 p-6 shadow-glass">
         <h1 className="text-3xl font-semibold">Vendor dashboard</h1>
         <p className="mt-2 text-slate-400">Monitor orders, inventory value, and sales performance from campus shoppers.</p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {[
+            { id: 'overview', label: 'Overview' },
+            { id: 'orders', label: 'Orders & delivery' }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActiveTab(tab.id)}
+              className={`theme-tab ${activeTab === tab.id ? 'theme-tab--active' : ''}`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
         <div className="mt-4 grid gap-3 text-sm text-slate-300 sm:grid-cols-2">
           <p>Store: <span className="font-semibold text-slate-100">{vendorProfile?.storeName || 'N/A'}</span></p>
           <p>Phone: <span className="font-semibold text-slate-100">{vendorProfile?.contactNumber || vendorProfile?.user?.phone || 'Not added'}</span></p>
@@ -155,6 +172,9 @@ const VendorDashboardPage = () => {
           </button>
         </div>
       </div>
+      {activeTab === 'orders' && <VendorOrdersPanel />}
+      {activeTab === 'overview' && (
+      <>
       <div className="grid gap-6 xl:grid-cols-3">
         <div className="rounded-3xl border border-slate-800 bg-slate-950 p-6">
           <p className="text-sm uppercase tracking-[0.35em] text-slate-400">Revenue</p>
@@ -242,6 +262,8 @@ const VendorDashboardPage = () => {
           </div>
         </section>
       </div>
+      </>
+      )}
     </div>
   );
 };

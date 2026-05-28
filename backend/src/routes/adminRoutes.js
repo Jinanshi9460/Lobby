@@ -12,13 +12,15 @@ const {
   toggleShopStatus,
   listProducts,
   toggleProductStatus,
-  exportAdminCsv
+  exportAdminCsv,
+  listOrders
 } = require('../controllers/adminController');
 
 const router = express.Router();
 
 router.use(verifyToken, authorizeRoles('admin'));
 router.get('/stats', getDashboardStats);
+router.get('/orders', listOrders);
 router.get('/export/csv', exportAdminCsv);
 router.get('/users', listUsers);
 router.get('/vendors', listVendors);

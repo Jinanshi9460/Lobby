@@ -16,6 +16,13 @@ const orderSchema = new mongoose.Schema({
   status: { type: String, enum: ['pending', 'confirmed', 'preparing', 'dispatched', 'delivered', 'cancelled'], default: 'pending' },
   paymentMethod: { type: String, enum: ['razorpay', 'cod'], default: 'razorpay' },
   paymentStatus: { type: String, enum: ['pending', 'paid', 'failed', 'refunded'], default: 'pending' },
+  deliveryPartner: { type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryPartner' },
+  deliveryOtpHash: { type: String, select: false },
+  customerDeliveryOtp: { type: String, select: false },
+  deliveryOtpExpires: { type: Date },
+  deliveryOtpAttempts: { type: Number, default: 0 },
+  deliveredAt: { type: Date },
+  deliveryConfirmedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   deliveryEta: { type: Date },
   tracking: [{ status: String, updatedAt: Date, note: String }],
   createdAt: { type: Date, default: Date.now }

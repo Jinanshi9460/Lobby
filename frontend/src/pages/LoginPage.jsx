@@ -67,6 +67,9 @@ const LoginPage = ({ roleHint = 'student' }) => {
       if (roleHint === 'vendor' && data.user.role !== 'vendor') {
         throw new Error('This account is not registered as a vendor.');
       }
+      if (data.user.role === 'delivery') {
+        throw new Error('Delivery partners must use the delivery login portal.');
+      }
       login({ token: data.token, user: data.user });
       navigate(data.user.role === 'vendor' ? '/vendor' : '/');
     } catch (err) {

@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   phone: { type: String, trim: true },
   password: { type: String, required: true, minlength: 8 },
-  role: { type: String, enum: ['student', 'vendor', 'admin'], default: 'student' },
+  role: { type: String, enum: ['student', 'vendor', 'admin', 'delivery'], default: 'student' },
   isVerified: { type: Boolean, default: false },
   isSuspended: { type: Boolean, default: false },
   resetPasswordToken: { type: String },

@@ -286,6 +286,22 @@ const exportAdminCsv = async (req, res, next) => {
   }
 };
 
+const listOrders = async (req, res, next) => {
+  try {
+    const orders = await Order.find()
+      .sort({ createdAt: -1 })
+      .limit(200)
+      .populate('user', 'name email')
+      .populate('vendor', 'storeName')
+      .populate({ path: 'deliveryPartner', select: 'name phone' })
+      .select('-deliveryOtpHash -customerDeliveryOtp');
+
+    res.json({ success: true, orders });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getDashboardStats,
   listUsers,
@@ -298,5 +314,6 @@ module.exports = {
   toggleShopStatus,
   listProducts,
   toggleProductStatus,
-  exportAdminCsv
+  exportAdminCsv,
+  listOrders
 };

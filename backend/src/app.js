@@ -21,6 +21,7 @@ const chatRoutes = require('./routes/chatRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const helpdeskRoutes = require('./routes/helpdeskRoutes');
+const deliveryRoutes = require('./routes/deliveryRoutes');
 
 const swaggerPath = path.join(__dirname, '../swagger.yaml');
 let swaggerDocument = null;
@@ -83,6 +84,7 @@ app.use('/api/chat', chatRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/helpdesk', helpdeskRoutes);
+app.use('/api/delivery', deliveryRoutes);
 
 if (swaggerDocument) {
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

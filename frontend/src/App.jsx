@@ -21,6 +21,8 @@ import VendorDashboardPage from './pages/VendorDashboardPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminSettingsPage from './pages/AdminSettingsPage';
+import DeliveryLoginPage from './pages/DeliveryLoginPage';
+import DeliveryDashboardPage from './pages/DeliveryDashboardPage';
 import NotificationsPage from './pages/NotificationsPage';
 import ChatPage from './pages/ChatPage';
 import HelpdeskPage from './pages/HelpdeskPage';
@@ -33,6 +35,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   if (allowedRoles && !allowedRoles.includes(user.role)) {
     if (user.role === 'admin') return <Navigate to="/admin" replace />;
     if (user.role === 'vendor') return <Navigate to="/vendor" replace />;
+    if (user.role === 'delivery') return <Navigate to="/delivery" replace />;
     return <Navigate to="/customer" replace />;
   }
   return children;
@@ -41,6 +44,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 const RoleGateway = () => {
   const { user } = useAuth();
   if (!user) return <Navigate to="/customer" replace />;
+  if (user.role === 'delivery') return <Navigate to="/delivery" replace />;
   return <Navigate to={user.role === 'vendor' ? '/vendor' : '/customer'} replace />;
 };
 
@@ -85,6 +89,8 @@ function App() {
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/admin" element={<ProtectedRoute allowedRoles={[ 'admin' ]}><AdminDashboardPage /></ProtectedRoute>} />
           <Route path="/admin/settings" element={<ProtectedRoute allowedRoles={[ 'admin' ]}><AdminSettingsPage /></ProtectedRoute>} />
+          <Route path="/delivery/login" element={<DeliveryLoginPage />} />
+          <Route path="/delivery" element={<ProtectedRoute allowedRoles={[ 'delivery' ]}><DeliveryDashboardPage /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/customer" replace />} />
         </Routes>
       </main>

@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
 const Vendor = require('../models/Vendor');
+const DeliveryPartner = require('../models/DeliveryPartner');
 const Shop = require('../models/Shop');
 const Notification = require('../models/Notification');
 const { ApiError } = require('../middlewares/errorHandler');
@@ -124,7 +125,8 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const normalizedEmail = String(email || '').trim().toLowerCase();
+    const user = await User.findOne({ email: normalizedEmail });
     if (!user) throw new ApiError('Invalid credentials', 401);
     if (user.role === 'admin') throw new ApiError('Use admin login portal', 403);
     if (user.isSuspended) throw new ApiError('Account suspended', 403);
@@ -140,6 +142,10 @@ const login = async (req, res, next) => {
     }
     const isMatch = await user.comparePassword(password);
     if (!isMatch) throw new ApiError('Invalid credentials', 401);
+    if (user.role === 'delivery') {
+      const partner = await DeliveryPartner.findOne({ user: user._id, isActive: true });
+      if (!partner) throw new ApiError('Delivery partner account is inactive or not found', 403);
+    }
     const token = signToken(user);
     const refreshToken = signRefreshToken(user);
     res.cookie('refreshToken', refreshToken, { httpOnly: true, sameSite: 'strict' });

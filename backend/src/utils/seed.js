@@ -5,15 +5,59 @@ const Vendor = require('../models/Vendor');
 const Category = require('../models/Category');
 const Product = require('../models/Product');
 const Shop = require('../models/Shop');
+const DeliveryPartner = require('../models/DeliveryPartner');
 
 const shouldReset =
   process.argv.includes('--reset') ||
   process.env.SEED_RESET === 'true';
 
 const ensureUser = async userData => {
-  const existing = await User.findOne({ email: userData.email });
+  const email = String(userData.email).trim().toLowerCase();
+  const existing = await User.findOne({ email });
   if (existing) return existing;
-  return User.create(userData);
+  return User.create({ ...userData, email });
+};
+
+const ensureDeliveryAccount = async vendorId => {
+  const email = 'delivery@lobby.com';
+  let user = await User.findOne({ email });
+  if (!user) {
+    user = await User.create({
+      name: 'Campus Rider',
+      email,
+      phone: '+919800000099',
+      password: 'DeliveryPass123',
+      role: 'delivery',
+      isVerified: true
+    });
+  } else {
+    user.name = 'Campus Rider';
+    user.role = 'delivery';
+    user.phone = '+919800000099';
+    user.isVerified = true;
+    user.isSuspended = false;
+    user.password = 'DeliveryPass123';
+    await user.save();
+  }
+
+  let partner = await DeliveryPartner.findOne({ user: user._id });
+  if (!partner) {
+    partner = await DeliveryPartner.create({
+      vendor: vendorId,
+      user: user._id,
+      name: 'Campus Rider',
+      phone: '+919800000099',
+      isActive: true
+    });
+  } else {
+    partner.vendor = vendorId;
+    partner.name = 'Campus Rider';
+    partner.phone = '+919800000099';
+    partner.isActive = true;
+    await partner.save();
+  }
+
+  return { user, partner };
 };
 
 const ensureCategory = async categoryData => {
@@ -78,6 +122,9 @@ const seed = async () => {
         rating: 4.8
       });
     }
+
+    await ensureDeliveryAccount(vendor._id);
+    console.log('Delivery demo account ready: delivery@lobby.com / DeliveryPass123');
 
     const shop = await ensureShop(
       {
